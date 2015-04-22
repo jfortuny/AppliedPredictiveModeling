@@ -20,12 +20,23 @@ ggplot(data=Glass, aes(x=RI)) +
   geom_histogram(binwidth=width, colour="black", fill="white")
 
 
-compounds <- names(Glass[-length(Glass)])
+
 plotOne <- function(data, name, index) {
   # data is a data.frame of predictors
   # name is the vector of names that describes the predictors
   # index is the numeric position of the predictor to pick
   variable <- data[, index]
   heading <- name[index]
-  hist(variable, main=paste("Histogram of ", heading), xlab=heading)
+  hist(variable, main=paste("Histogram of ", heading), sub="Mean in Red, Median in Blue", xlab=heading)
+  abline(v=mean(variable), col="red")
+  abline(v=median(variable), col="blue")
 }
+
+
+compounds <- names(Glass[-length(Glass)])
+i <- 1
+while(i <= length(compounds)) {
+  plotOne (Glass, compounds, i)
+  i <- i+1
+}
+
