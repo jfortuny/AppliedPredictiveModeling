@@ -127,3 +127,19 @@ head(trainIndex)
 
 irisTrain <- iris[trainIndex,]
 irisTest <- iris[-trainIndex,]
+
+# 4.2 Data Splitting based on predictors
+library(mlbench)
+data("BostonHousing")
+testing <- scale(BostonHousing[, c("age", "nox")])
+head(testing)
+
+set.seed(5)
+# A random sample of 5 data points
+startSet <- sample(1:dim(testing)[1],5)
+samplePool <- testing[-startSet,]
+start <- testing[startSet,]
+newSamp <- maxDissim(start, samplePool, n = 20)
+newSamp
+
+# Data Splitting for Time Series
